@@ -2,11 +2,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>JSP - Hello World</title>
+    <title>Antons Skafferi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Italiana&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="styles/styles.css">
 </head>
 <body>
-<h1><%= "Hello World!" %></h1>
+<h1>Antons Skafferi</h1>
+<a href="hello-servlet">  À la carte</a>
 <br/>
-<a href="hello-servlet">Hello Servlet</a>
+<footer>
+    <h3>Footer content goes here</h3>
+</footer>
 </body>
 </html>
