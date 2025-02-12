@@ -42,14 +42,3 @@ a {
     text-decoration: none;
     margin: 8% 0 0 5%;
 }
-
-footer {
-    position: relative;
-    bottom: 0;
-    width: 100%;
-    background-color: rgba(19, 19, 19, 1); /* Semi-transparent background */
-    color: white;
-    text-align: center;
-    padding: 10px 0;
-    z-index: 2;
-}

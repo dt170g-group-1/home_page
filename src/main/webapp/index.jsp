@@ -10,8 +10,5 @@
 <h1>Antons Skafferi</h1>
 <a href="hello-servlet">  À la carte</a>
 <br/>
-<footer>
-    <h3>Footer content goes here</h3>
-</footer>
 </body>
 </html>
