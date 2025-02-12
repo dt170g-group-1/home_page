@@ -21,8 +21,6 @@
         <br/> <b>Grillad kycklingfilé</b> med en krämig svampsås, rostad potatis och en sallad på färsk spenat, rödlök, tomat och fetaost.
         <br/> <b>Torsdag</b>
         <br/> <b> </b>, Rårörda Lingon, Potatispuré, Gröna Ärtor
-        <br/><br/><br/><br/><br/><br/><br/><br/><br/>
-        <br/><br/><br/><br/><br/><br/><br/><br/>
         </div>
         <div id = "events">
         <br/> <b><h2>Events</h2></b>
