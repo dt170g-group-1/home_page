@@ -7,8 +7,18 @@
     <link rel="stylesheet" type="text/css" href="styles/styles.css">
 </head>
 <body>
-<h1>Antons Skafferi</h1>
-<a href="hello-servlet">  À la carte</a>
+<jsp:include page="header.jsp" />
 <br/>
+    <div class="container">
+        <br/>
+        <br/>
+        <br/>
+        <br/><br/><br/><br/><br/><br/><br/>
+        <br/><br/><br/><br/><br/><br/><br/><br/>
+        <br/><br/><br/><br/><br/><br/><br/><br/>
+        <br/><br/><br/><br/><br/><br/><br/><br/>
+        <br/><br/><br/><br/><br/><br/><br/><br/><br/>
+        <br/><br/><br/><br/><br/><br/><br/><br/>
+</div>
 </body>
 </html>
