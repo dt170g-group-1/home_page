@@ -8,10 +8,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <header>
     <h1>Antons Skafferi</h1>
-    <a href="index.jsp">Hem</a>
-    <a href="index.jsp">Lunch</a>
+    <a href="index.jsp#lunch">Lunch</a>
     <a href="alacarte.jsp">À la carte</a>
-    <a href="index.jsp">Evenemang</a>
-    <a href="index.jsp">Hitta hit</a>
+    <a href="index.jsp#events">Evenemang</a>
+    <a href="index.jsp#footer">Hitta hit</a>
 
 </header>
