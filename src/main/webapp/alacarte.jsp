@@ -18,8 +18,7 @@
 <br/>
 <div class="container">
   <body>
-  <h1>À la carte</h1>
-
+  <h1 style="color: black;">À la carte</h1>
   <!-- Förrätter -->
   <h2>Förrätter</h2>
 
