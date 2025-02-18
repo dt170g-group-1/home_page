@@ -56,6 +56,16 @@ a {
     text-align: center;
     overflow: auto; /* Make the container scrollable */
     max-height: 65%;
+    height: 80vh;
+}
+
+.container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
 }
 
 #footer {

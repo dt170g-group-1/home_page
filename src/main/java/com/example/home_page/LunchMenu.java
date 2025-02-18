@@ -23,7 +23,7 @@ import java.util.List;
 @WebServlet(name = "lunchMenu", value = "/lunch-menu")
 public class LunchMenu extends HttpServlet {
 
-    private DayOfWeek getDayOfWeek(String day) { // added because of a error java doesn't like (ÅÄÖ)
+    private DayOfWeek getDayOfWeek(String day) { // added because of an error java doesn't like (ÅÄÖ)
         switch (day.toLowerCase()) {
             case "måndag": return DayOfWeek.MONDAY;
             case "tisdag": return DayOfWeek.TUESDAY;
@@ -35,7 +35,6 @@ public class LunchMenu extends HttpServlet {
             default: throw new IllegalArgumentException("Invalid day: " + day);
         }
     }
-
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         response.setContentType("text/html");
