@@ -17,7 +17,7 @@
 <jsp:include page="header.jsp" />
 <br/>
 <div class="container">
-  <iframe src='styles/Anton.pdf'></iframe>
+  <iframe src="styles/Anton.pdf#navpanes=0&toolbar=0&statusbar=0&zoom=140" style="width:100%; height:100%; border:none;"></iframe>
 </div>
 </body>
 </html>
