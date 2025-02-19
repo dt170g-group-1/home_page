@@ -8,8 +8,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <div id="footer">
     <div class="footer-left">
-        <h2>Öppetrider</h2>
-        <p><b>Söndag - Tordag</b> 11:00 - 22:00</p>
+        <h2>Öppettider</h2>
+        <p><b>Söndag - Torsdag</b> 11:00 - 22:00</p>
         <p><b>Fredag - Lördag</b> 11:00 - 02:00</p>
         <p><b>Address:</b> Storgatan 10, 852 36 Sundsvall</p>
         <b>Contact Us</b>

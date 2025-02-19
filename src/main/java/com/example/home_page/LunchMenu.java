@@ -13,15 +13,44 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.awt.SystemColor.menu;
+
 @WebServlet(name = "lunchMenu", value = "/lunch-menu")
 public class LunchMenu extends HttpServlet {
+    private List<AddLunch> getLunchDataFromExcel() throws IOException {
+        List<AddLunch> lunchList = new ArrayList<>();
+        try (InputStream is = getClass().getResourceAsStream("/menu.xlsx")) {
+            assert is != null;
+            Workbook workbook = new XSSFWorkbook(is);
+            Sheet sheet = workbook.getSheetAt(0);
+            for (Row row : sheet) {
+                if (row.getRowNum() == 0) {
+                    continue; // Skip header
+                }
+                String day = row.getCell(0).getStringCellValue();
+                String dish = row.getCell(1).getStringCellValue();
+                String description = row.getCell(2).getStringCellValue();
+                double price = row.getCell(3).getNumericCellValue();
+                lunchList.add(new AddLunch(day, dish, description, (int)price));
+            }
+        }
+        return lunchList;
+    }
+
 
     private DayOfWeek getDayOfWeek(String day) { // added because of an error java doesn't like (ÅÄÖ)
         switch (day.toLowerCase()) {
@@ -38,15 +67,16 @@ public class LunchMenu extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         response.setContentType("text/html");
-
         PrintWriter out = response.getWriter();
+        List<AddLunch> lunchMenu = getLunchDataFromExcel();
+        //PrintWriter out = response.getWriter();
 
-        List<AddLunch> lunchMenu = new ArrayList<>();
-        lunchMenu.add(new AddLunch("Måndag", "Wallenbergare", "med hemslagen brunsås Rårörda Lingon, Potatispuré, Gröna Ärtor", 100));
-        lunchMenu.add(new AddLunch("Tisdag", "Steak minute", "med en hemslagen bearnaise, kryddig pommes & krispig spenatsallad med parmesan, picklad silverlök och rostade hasselnötter.", 120));
-        lunchMenu.add(new AddLunch("Onsdag", "Grillad kycklingfilé", "med en krämig svampsås, rostad potatis och en sallad på färsk spenat, rödlök, tomat och fetaost.", 110));
-        lunchMenu.add(new AddLunch("Torsdag", "Antons Kötfärs", "med en hemslagen brunsås, Rårörda Lingon, Potatismos och Pressgruka", 100));
-        lunchMenu.add(new AddLunch("Fredag", "Grillad laxfilé", "med en krämig hummersås, kokt potatis och en sallad på färsk spenat, rödlök, tomat och fetaost.", 130));
+        //List<AddLunch> lunchMenu = new ArrayList<>();
+        //lunchMenu.add(new AddLunch("Måndag", "Wallenbergare", "med hemslagen brunsås Rårörda Lingon, Potatispuré, Gröna Ärtor", 100));
+        //lunchMenu.add(new AddLunch("Tisdag", "Steak minute", "med en hemslagen bearnaise, kryddig pommes & krispig spenatsallad med parmesan, picklad silverlök och rostade hasselnötter.", 120));
+       // lunchMenu.add(new AddLunch("Onsdag", "Grillad kycklingfilé", "med en krämig svampsås, rostad potatis och en sallad på färsk spenat, rödlök, tomat och fetaost.", 110));
+       // lunchMenu.add(new AddLunch("Torsdag", "Antons Kötfärs", "med en hemslagen brunsås, Rårörda Lingon, Potatismos och Pressgruka", 100));
+      //  lunchMenu.add(new AddLunch("Fredag", "Grillad laxfilé", "med en krämig hummersås, kokt potatis och en sallad på färsk spenat, rödlök, tomat och fetaost.", 130));
 
 
         DayOfWeek today = LocalDate.now().getDayOfWeek();

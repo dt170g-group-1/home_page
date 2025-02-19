@@ -35,8 +35,7 @@ public class Events extends HttpServlet {
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("events.jsp");
         dispatcher.forward(request, response);
-
-         */
+        */
 
         if (!events.isEmpty()) {
             out.println("<div id='events'>");
