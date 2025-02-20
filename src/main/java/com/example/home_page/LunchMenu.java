@@ -1,6 +1,6 @@
 /*
 Created by IntelliJ IDEA.
-User: Johannes
+User: Johannes / Hannes
 Date: 2025-02-12
 Time: 11:14
 To change this template use File | Settings | File Templates.
@@ -80,15 +80,15 @@ public class LunchMenu extends HttpServlet {
 
 
         DayOfWeek today = LocalDate.now().getDayOfWeek();
-        String todayString = "";
-        switch (today) {
-            case MONDAY: todayString = "Måndag"; break;
-            case TUESDAY: todayString = "Tisdag"; break;
-            case WEDNESDAY: todayString = "Onsdag"; break;
-            case THURSDAY: todayString = "Torsdag"; break;
-            case FRIDAY: todayString = "Fredag"; break;
+        String todayString = switch (today) {
+            case MONDAY -> "Måndag";
+            case TUESDAY -> "Tisdag";
+            case WEDNESDAY -> "Onsdag";
+            case THURSDAY -> "Torsdag";
+            case FRIDAY -> "Fredag";
+            default -> "";
             // Add cases for Saturday and Sunday if needed
-        }
+        };
 
         out.println("<div id='lunch'>");
         out.println("<h2>Dagens Lunch   11:00 - 14:00 </h2>");
