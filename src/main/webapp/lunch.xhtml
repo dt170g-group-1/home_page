@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:include src="header.xhtml"/>
+<f:view>
+    <div class="container">
+    <ui:repeat value="#{lunchBean.todaysLunch}" var="lunch">
+        <div id="lunch">
+            <h2>Dagens Lunch   11:00 - 14:00</h2>
+            <b>#{lunch.day}</b><br/>
+            <p><b>#{lunch.title} </b> #{lunch.description} <b>#{lunch.price}:-</b></p><br/>
+        </div>
+    </ui:repeat>
+        <ui:repeat value="#{lunchBean.comingLunches}" var="lunch">
+            <div id="comming-lunch">
+                <h3>Veckans Lunch  11:00 - 14:00</h3>
+                <b>#{lunch.day}</b><br/>
+                <p><b>#{lunch.title} </b> #{lunch.description} <b>#{lunch.price}:-</b></p><br/>
+            </div>
+        </ui:repeat>
+        <ui:include src="footer.xhtml"/>
+    </div>
+</f:view>
+</html>
