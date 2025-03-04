@@ -4,6 +4,7 @@ public class Event {
     private String event;
     private String date;
     private String time;
+    private byte[] image;
 
     public Event(String event, String date, String time) {
         this.event = event;
@@ -33,5 +34,13 @@ public class Event {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 }

@@ -1,28 +1,27 @@
 package miun.dt170g.antons;
 
-
-import com.example.home_page.AddEvents;
-import com.example.home_page.Events;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Named;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.util.CellAddress;
+import org.apache.poi.xssf.usermodel.*;
+import org.apache.poi.*;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+
 
 @Named
 @RequestScoped
 public class EventBean {
     private List<Event> getEventsDataFromExcel() throws IOException {
         List<Event> eventsList = new ArrayList<>();
-        try (InputStream is = getClass().getResourceAsStream("/events.xlsx")) {
+        File file = new File("events.xlsx");
+        try (InputStream is = new FileInputStream(file)) {
             assert is != null;
             Workbook workbook = new XSSFWorkbook(is);
             Sheet sheet = workbook.getSheetAt(0);
@@ -38,6 +37,7 @@ public class EventBean {
         }
         return eventsList;
     }
+
     private String getCellValueAsString(Cell cell) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         return dateFormat.format(cell.getDateCellValue());
@@ -55,17 +55,11 @@ public class EventBean {
         if(!allEvent.isEmpty()){
             allEvent.sort((e1,e2) -> e1.getDate().compareTo(e2.getDate()));
 
-            String today = new SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date());
-            String nextEventDate = null;
+            String today = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
             for (Event event : allEvent) {
                 if (event.getDate().compareTo(today) >= 0) {
-                    nextEventDate = event.getDate();
-                    break;
-                }
-            }
-            for (Event event : allEvent){
-                if(event.getDate().equals(nextEventDate)){
                     nextComingEvent.add(event);
+                    break;
                 }
             }
         }

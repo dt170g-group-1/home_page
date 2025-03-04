@@ -7,6 +7,8 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.DayOfWeek;
@@ -17,7 +19,6 @@ import java.util.List;
 @Named
 @RequestScoped
 public class LunchBean {
-
     public List<Lunch> getLunches() throws IOException {
         return getLunchesFromExcel();
     }
@@ -50,11 +51,12 @@ public class LunchBean {
         return comingLunches;
     }
 
-
     public List<Lunch> getLunchesFromExcel() throws IOException {
 
         List<Lunch> list = new ArrayList<Lunch>();
-        try (InputStream is = getClass().getResourceAsStream("/menu.xlsx")){
+        File file = new File("menu.xlsx");
+
+        try (InputStream is = new FileInputStream(file)){
             assert is != null;
             Workbook workbook = new XSSFWorkbook(is);
             Sheet sheet = workbook.getSheetAt(0);
@@ -62,17 +64,26 @@ public class LunchBean {
                 if(row.getRowNum()==0){
                     continue;
                 }
-                String day = row.getCell(0).getStringCellValue();
+                String day = row.getCell(0).getStringCellValue().trim();
+                if (day == null || day.isEmpty()) {
+                    continue;
+                }
                 String title = row.getCell(1).getStringCellValue();
                 String description = row.getCell(2).getStringCellValue();
                 double price = row.getCell(3).getNumericCellValue();
-                list.add(new Lunch(day,title,description, (int) price));
+                String title2 = row.getCell(4).getStringCellValue();
+                double price2 = row.getCell(5).getNumericCellValue();
+                list.add(new Lunch(day,title,description, (int) price, title2, (int) price2));
             }
         }
         return list;
     }
-
     private DayOfWeek getDayOfWeek(String day){
+
+        if (day == null || day.trim().isEmpty()) {
+            throw new IllegalArgumentException("Day string cannot be null or empty");
+        }
+
         switch (day.toLowerCase()){
             case "måndag": return DayOfWeek.MONDAY;
             case "tisdag": return DayOfWeek.TUESDAY;
@@ -85,23 +96,15 @@ public class LunchBean {
         }
     }
     private String getDayString(DayOfWeek dayOfWeek) {
-        switch (dayOfWeek) {
-            case MONDAY: return "Måndag";
-            case TUESDAY: return "Tisdag";
-            case WEDNESDAY: return "Onsdag";
-            case THURSDAY: return "Torsdag";
-            case FRIDAY: return "Fredag";
-            case SATURDAY: return "Lördag";
-            case SUNDAY: return "Söndag";
-            default: throw new IllegalArgumentException("Invalid day: " + dayOfWeek);
-        }
+        return switch (dayOfWeek) {
+            case MONDAY -> "Måndag";
+            case TUESDAY -> "Tisdag";
+            case WEDNESDAY -> "Onsdag";
+            case THURSDAY -> "Torsdag";
+            case FRIDAY -> "Fredag";
+            case SATURDAY -> "Lördag";
+            case SUNDAY -> "Söndag";
+            default -> throw new IllegalArgumentException("Invalid day: " + dayOfWeek);
+        };
     }
 }
-
-   /*
-        Lunch lunch1 = new Lunch("Måndag", "Wallenbergare", "God!", 110);
-        List<Lunch> list = new ArrayList<Lunch>();
-        list.add(lunch1);
-        list.add(lunch1);
-        return list;
-         */
