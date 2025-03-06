@@ -5,7 +5,6 @@ body {
     background-attachment: fixed;
     margin: 0;
     font-family: 'Arial', sans-serif;
-
 }
 
 header {
@@ -86,4 +85,13 @@ a {
     background-position: center;
     height: 250px;
     border-radius: 10px;
+}
+
+.full-page-background {
+    width: 100vw;
+}
+
+.responsive-image {
+    max-width: 80%;
+    height: auto;
 }
