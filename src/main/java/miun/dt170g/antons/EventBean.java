@@ -14,6 +14,8 @@ import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import java.util.Base64;
+
 
 @Named
 @RequestScoped
@@ -23,7 +25,7 @@ public class EventBean {
         File file = new File("events.xlsx");
         try (InputStream is = new FileInputStream(file)) {
             assert is != null;
-            Workbook workbook = new XSSFWorkbook(is);
+            XSSFWorkbook workbook = new XSSFWorkbook(is);
             Sheet sheet = workbook.getSheetAt(0);
             for (Row row : sheet) {
                 if (row.getRowNum() == 0) {
@@ -32,7 +34,9 @@ public class EventBean {
                 String event = row.getCell(0).getStringCellValue();
                 String date = getCellValueAsString(row.getCell(1));
                 String time = getTimeValueAsString(row.getCell(2));
-                eventsList.add(new Event(event, date, time));
+                byte[] image = extractImageFromWorkbook(workbook);
+                String imageUrl = Base64.getEncoder().encodeToString(image);
+                eventsList.add(new Event(event, date, time, image, imageUrl));
             }
         }
         return eventsList;
@@ -47,6 +51,16 @@ public class EventBean {
         String time = cell.getDateCellValue().toString();
         return time.substring(11, 16);
     }
+
+    private byte[] extractImageFromWorkbook(Workbook workbook) {
+        List<XSSFPictureData> pictures = ((XSSFWorkbook) workbook).getAllPictures();
+        if (pictures.isEmpty()) {
+            return null; // No images found
+        }
+        XSSFPictureData pictureData = pictures.get(0);
+        return pictureData.getData();
+    }
+
 
     public List<Event> getComingEvent() throws IOException {
         List<Event> allEvent = getEventsDataFromExcel();

@@ -12,7 +12,9 @@
         <div id="lunch">
             <h2>Dagens Lunch   11:00 - 14:00</h2>
             <b>#{lunch.day}</b><br/>
-            <p><b>#{lunch.title} </b> #{lunch.description} <b>#{lunch.price}:-</b></p><br/>
+            <p><b>#{lunch.title} </b> #{lunch.description} <b>#{lunch.price}:-</b></p>
+            <h3>Veckans soppa</h3>
+            <p><b>#{lunch.title2} #{lunch.price2}:-</b></p><br/>
         </div>
     </ui:repeat>
         <h3>Veckans Lunch  11:00 - 14:00</h3>
@@ -28,8 +30,8 @@
                 <b>#{events.event}</b><br/>
                 <p>#{events.date} </p>
                 <p>#{events.time}</p>
+                <h:graphicImage value="data:image/png;base64,#{events.imageUrl}" styleClass="responsive-image" />
             </div>
-
         </ui:repeat>
         <ui:include src="footer.xhtml"/>
     </div>
