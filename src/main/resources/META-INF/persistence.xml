@@ -4,6 +4,28 @@
              xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_2.xsd"
              version="3.2">
     <persistence-unit name="default">
+        <properties>
+            <!-- JDBC connection URL for SQLite -->
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:sqlite:mydatabase.db"/>
 
+            <!-- JDBC driver -->
+            <property name="jakarta.persistence.jdbc.driver" value="org.sqlite.JDBC"/>
+
+            <!-- Database user credentials (SQLite doesn't require username/password) -->
+            <property name="jakarta.persistence.jdbc.user" value=""/>
+            <property name="jakarta.persistence.jdbc.password" value=""/>
+
+            <!-- JPA provider (Payara supports EclipseLink by default) -->
+            <property name="jakarta.persistence.provider" value="org.eclipse.persistence.jpa.PersistenceProvider"/>
+
+            <!-- JPA schema generation -->
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+
+            <!-- Show SQL statements in the logs (optional) -->
+            <property name="jakarta.persistence.show.sql" value="true"/>
+
+            <!-- Dialect for SQLite (EclipseLink) -->
+            <property name="eclipselink.jdbc.dialect" value="org.eclipse.persistence.platform.database.SQLitePlatform"/>
+        </properties>
     </persistence-unit>
 </persistence>

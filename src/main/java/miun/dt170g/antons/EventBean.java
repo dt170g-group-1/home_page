@@ -31,7 +31,8 @@ public class EventBean {
                 if (row.getRowNum() == 0) {
                     continue; // Skip header
                 }
-                String event = row.getCell(0).getStringCellValue();
+                String event = getTextCellValue(row.getCell(0));
+                //String event = row.getCell(0).getStringCellValue();
                 String date = getCellValueAsString(row.getCell(1));
                 String time = getTimeValueAsString(row.getCell(2));
                 byte[] image = extractImageFromWorkbook(workbook);
@@ -41,15 +42,33 @@ public class EventBean {
         }
         return eventsList;
     }
-
-    private String getCellValueAsString(Cell cell) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        return dateFormat.format(cell.getDateCellValue());
+    private String getTextCellValue(Cell cell) {
+        if (cell == null) return "hello";
+        return cell.getCellType() == CellType.STRING ? cell.getStringCellValue() : cell.toString();
     }
 
+    private String getCellValueAsString(Cell cell) {
+        if (cell == null) return "";
+        switch (cell.getCellType()) {
+            case STRING:
+                return cell.getStringCellValue();
+            case NUMERIC:
+                if (DateUtil.isCellDateFormatted(cell)) {
+                    return new SimpleDateFormat("yyyy-MM-dd").format(cell.getDateCellValue());
+                }
+                return String.valueOf(cell.getNumericCellValue());
+            default:
+                return "";
+        }
+    }
+
+    // Properly extracts time from a date-formatted numeric cell
     private String getTimeValueAsString(Cell cell) {
-        String time = cell.getDateCellValue().toString();
-        return time.substring(11, 16);
+        if (cell == null) return "";
+        if (cell.getCellType() == CellType.NUMERIC && DateUtil.isCellDateFormatted(cell)) {
+            return new SimpleDateFormat("HH:mm").format(cell.getDateCellValue());
+        }
+        return cell.toString();
     }
 
     private byte[] extractImageFromWorkbook(Workbook workbook) {

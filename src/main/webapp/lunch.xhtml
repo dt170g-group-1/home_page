@@ -8,6 +8,24 @@
 <ui:include src="header.xhtml"/>
 <f:view>
     <div class="container">
+        <h:panelGroup rendered="#{not empty eventBean.comingEvent}">
+            <div class="image-container">
+                <ui:repeat value="#{eventBean.comingEvent}" var="events">
+                    <div id="events" class="event-item">
+                        <div class="event-text" style="color: white;text-align: left;padding-right: 150px;padding-left: 100px;">
+                            <b>#{events.event}</b><br/>
+                            <p>#{events.date} </p>
+                            <p>#{events.time}</p>
+                        </div>
+                        <div class="event-image">
+                            <a href="events.xhtml">
+                                <h:graphicImage value="data:image/png;base64,#{events.imageUrl}" styleClass="responsive-image" />
+                            </a>
+                        </div>
+                    </div>
+                </ui:repeat>
+            </div>
+        </h:panelGroup>
     <ui:repeat value="#{lunchBean.todaysLunch}" var="lunch">
         <div id="lunch">
             <h2>Dagens Lunch   11:00 - 14:00</h2>
@@ -22,15 +40,6 @@
             <div id="comming-lunch">
                 <b>#{lunch.day}</b><br/>
                 <p><b>#{lunch.title} </b> #{lunch.description} <b>#{lunch.price}:-</b></p><br/>
-            </div>
-        </ui:repeat>
-        <ui:repeat value="#{eventBean.comingEvent}" var="events">
-            <div id="events">
-                <h3>Upcoming Events</h3>
-                <b>#{events.event}</b><br/>
-                <p>#{events.date} </p>
-                <p>#{events.time}</p>
-                <h:graphicImage value="data:image/png;base64,#{events.imageUrl}" styleClass="responsive-image" />
             </div>
         </ui:repeat>
         <ui:include src="footer.xhtml"/>
